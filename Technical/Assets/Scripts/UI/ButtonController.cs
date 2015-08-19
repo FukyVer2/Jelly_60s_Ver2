@@ -35,6 +35,7 @@ public class ButtonController : MonoBehaviour
         Debug.Log("Show Banner");
         GoogleAds_J60s.Instance.ShowBanner();
 #endif
+		MyApplication.Instance.googleAnalytics.LogScreen ("GamePLay");
         gameStart.SetActive(false);
         gamePlay.SetActive(true);
         _gameController = gamePlay.GetComponentInChildren<GameController>();
@@ -47,6 +48,7 @@ public class ButtonController : MonoBehaviour
         //Debug.Log("Show Banner");
 		GoogleAds_J60s.Instance.HideBanner();
 #endif
+		MyApplication.Instance.googleAnalytics.LogScreen ("GameOver");
         gameOver.SetActive(true);
         gameOverController = gameOver.GetComponent<GameOver>();
         if (gameOverController != null)
@@ -61,6 +63,7 @@ public class ButtonController : MonoBehaviour
         //Debug.Log("Show Banner");
         GoogleAds_J60s.Instance.ShowBanner();
 #endif
+		MyApplication.Instance.googleAnalytics.LogScreen ("GameMenu");
         if (_gameController != null && _uiController != null)
         {
             _uiController.GameRelay();
@@ -81,6 +84,7 @@ public class ButtonController : MonoBehaviour
         //Debug.Log("Show Banner");
 		GoogleAds_J60s.Instance.HideBanner();
 #endif
+		MyApplication.Instance.googleAnalytics.LogScreen ("GameRelay");
         gameOver.SetActive(false);
 
         if (_gameController != null && _uiController != null)

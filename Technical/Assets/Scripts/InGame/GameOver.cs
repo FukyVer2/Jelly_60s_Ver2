@@ -29,11 +29,15 @@ public class GameOver : MonoBehaviour
 
         if (gameController != null)
         {
+
             if (gameController.score > PlayerPrefs.GetInt("Score"))//kiểm tra điểm người chơi có cao hơn HightScore
             {
                 PlayerPrefs.SetInt("Score", gameController.score);
                 PlayerPrefs.Save();//Lưu Hight Score
-            }
+				MyApplication.Instance.googleAnalytics.LogEvent("HighScore", "HightScore", "" + gameController.score, (int)Time.fixedTime);
+			}else {
+				MyApplication.Instance.googleAnalytics.LogEvent("NoScore", "NoScore", "" +gameController.score, (int)Time.fixedTime);
+			}
         }
         SetText();
     }
