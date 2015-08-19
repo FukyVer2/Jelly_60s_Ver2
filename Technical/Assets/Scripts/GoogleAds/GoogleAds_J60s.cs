@@ -30,9 +30,13 @@ public class GoogleAds_J60s : MonoSingleton<GoogleAds_J60s> {
         Debug.Log("Google Ads");
         isLoadBanner = false;
         SetAdsID();
-
-        RequestBanner();
-        RequestInterstitial();
+#if UNITY_ANDROID || UNITY_IOS
+		RequestBanner();
+		RequestInterstitial();
+		
+		GoogleAds_J60s.Instance.ShowBanner();
+#endif
+        
 	}
 	
 	// Update is called once per frame

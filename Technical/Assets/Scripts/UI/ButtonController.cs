@@ -31,9 +31,9 @@ public class ButtonController : MonoBehaviour
     {
         //#if UNITY_EDITOR
         //        Debug.Log("Show Banner");
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
         Debug.Log("Show Banner");
-       // GoogleAds_J60s.Instance.ShowBanner();
+        GoogleAds_J60s.Instance.ShowBanner();
 #endif
         gameStart.SetActive(false);
         gamePlay.SetActive(true);
@@ -43,9 +43,9 @@ public class ButtonController : MonoBehaviour
     }
     public void GameOver()//Game Over
     {
-#if UNITY_ANDROID
-        Debug.Log("Show Banner");
-        //GoogleAds_J60s.Instance.ShowBanner();
+#if UNITY_ANDROID || UNITY_IOS
+        //Debug.Log("Show Banner");
+		GoogleAds_J60s.Instance.HideBanner();
 #endif
         gameOver.SetActive(true);
         gameOverController = gameOver.GetComponent<GameOver>();
@@ -57,9 +57,9 @@ public class ButtonController : MonoBehaviour
     }
     public void GameMenu()//Menu Game
     {
-#if UNITY_ANDROID
-        Debug.Log("Show Banner");
-        //GoogleAds_J60s.Instance.ShowBanner();
+#if UNITY_ANDROID || UNITY_IOS
+        //Debug.Log("Show Banner");
+        GoogleAds_J60s.Instance.ShowBanner();
 #endif
         if (_gameController != null && _uiController != null)
         {
@@ -77,9 +77,9 @@ public class ButtonController : MonoBehaviour
     }
     public void GameRelay()
     {
-#if UNITY_ANDROID
-        Debug.Log("Show Banner");
-        //GoogleAds_J60s.Instance.ShowBanner();
+#if UNITY_ANDROID || UNITY_IOS
+        //Debug.Log("Show Banner");
+		GoogleAds_J60s.Instance.HideBanner();
 #endif
         gameOver.SetActive(false);
 

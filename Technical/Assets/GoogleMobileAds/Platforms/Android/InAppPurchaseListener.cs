@@ -23,6 +23,10 @@ namespace GoogleMobileAds.Android
             if (wrappedResult.IsSuccessful && wrappedResult.IsVerified) {
                 listener.FireOnInAppPurchaseFinished(wrappedResult);
             }
+            else
+            {
+                Debug.Log("InAppPurhase Failed!");
+            }
         }
     }
 }
