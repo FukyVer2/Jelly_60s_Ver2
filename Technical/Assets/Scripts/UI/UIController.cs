@@ -99,7 +99,7 @@ public class UIController : MonoBehaviour
     {
         SetText();
         timeImgage.transform.localScale = new Vector3((timeGame * 0.0166f), 1f, 1f);
-        timeImgage.GetComponent<Image>().color = Color.Lerp(Color.green, Color.red, 1 - (timeGame * 0.0166f));
+        //timeImgage.GetComponent<Image>().color = Color.Lerp(Color.green, Color.red, 1 - (timeGame * 0.0166f));
     }
     public void SetText()
     {
@@ -230,6 +230,7 @@ public class UIController : MonoBehaviour
         isGameOver = false;
         timeGameIT = timeGame;
         totalDelete = new int[6];
+       
         if (gameController != null)
         {
             scoreIT = gameController.score;
@@ -237,6 +238,7 @@ public class UIController : MonoBehaviour
         countDelete = 0;
         timeDelay = 0;
         SetText();
+        pause.SetActive(false);
     }
 
     void Scale(String name)
@@ -267,24 +269,22 @@ public class UIController : MonoBehaviour
             );
     }
     int intPause = 0;
-    public GameObject buttonPause;
     public void Pause()
     {
-        intPause++;
-        if (intPause % 2 != 0)
-        {
+
             gameController.activeTimeHelp = false;
             //buttonPause.GetComponentInChildren<Text>().text = "Resume";
             isPause = true;
-            //pause.SetActive(true);
+            pause.SetActive(true);
 
-        }
-        else
-        {
-            gameController.activeTimeHelp = true;
-            //buttonPause.GetComponentInChildren<Text>().text = "Pause";
-            isPause = false;
-            //pause.SetActive(false);
-        }
+        
+       
+    }
+    public void Resumes()
+    {     
+        gameController.activeTimeHelp = true;
+        //buttonPause.GetComponentInChildren<Text>().text = "Pause";
+        isPause = false;
+        pause.SetActive(false);        
     }
 }
