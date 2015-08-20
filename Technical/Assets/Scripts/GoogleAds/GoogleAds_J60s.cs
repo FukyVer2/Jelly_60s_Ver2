@@ -10,18 +10,18 @@ public class GoogleAds_J60s : MonoSingleton<GoogleAds_J60s> {
     private BannerView bannerView;
     private InterstitialAd interstitial;
 
-    private string android_Banner_BlueBird = "ca-app-pub-8112894826901791/5149068463";
+    //private string android_Banner_BlueBird = "ca-app-pub-8112894826901791/5149068463";
 
-    private string iOS_Banner_BlueBird = "ca-app-pub-8112894826901791/9718868865";
+    //private string iOS_Banner_BlueBird = "ca-app-pub-8112894826901791/9718868865";
 
-    private string android_FullScreen_BlueBird = "ca-app-pub-8112894826901791/6625801664";
+    //private string android_FullScreen_BlueBird = "ca-app-pub-8112894826901791/6625801664";
 
-    private string iOS_FullScreen_BlueBird = "ca-app-pub-8112894826901791/2195602065";
+    //private string iOS_FullScreen_BlueBird = "ca-app-pub-8112894826901791/2195602065";
 
-    private string android_Banner_AdsID = "ca-app-pub-8185609774740638/7070835702";
-    private string android_FullScreen_AdsID = "ca-app-pub-8185609774740638/8547568901";
-    private string iOS_Banner_AdsID = "ca-app-pub-8185609774740638/9884701303";
-    private string iOS_FullScreen_AdsID = "ca-app-pub-8185609774740638/2361434500";
+    private string android_Banner_AdsID = "ca-app-pub-8112894826901791/5149068463";
+    private string android_FullScreen_AdsID = "ca-app-pub-8112894826901791/6625801664";
+    private string iOS_Banner_AdsID = "ca-app-pub-8112894826901791/9718868865";
+    private string iOS_FullScreen_AdsID = "ca-app-pub-8112894826901791/2195602065";
 
     bool isLoadBanner;
 
@@ -29,12 +29,12 @@ public class GoogleAds_J60s : MonoSingleton<GoogleAds_J60s> {
 	void Start () {
         Debug.Log("Google Ads");
         isLoadBanner = false;
-        SetAdsID();
+        //SetAdsID();
 #if UNITY_ANDROID || UNITY_IOS
 		RequestBanner();
 		RequestInterstitial();
 		
-		GoogleAds_J60s.Instance.ShowBanner();
+		//GoogleAds_J60s.Instance.ShowBanner();
 #endif
         
 	}
@@ -45,14 +45,14 @@ public class GoogleAds_J60s : MonoSingleton<GoogleAds_J60s> {
 	}
   
 
-    void SetAdsID()
-    {       
-        android_Banner_AdsID = android_Banner_BlueBird;
-        android_FullScreen_AdsID = android_FullScreen_BlueBird;
+    //void SetAdsID()
+    //{       
+    //    android_Banner_AdsID = android_Banner_BlueBird;
+    //    android_FullScreen_AdsID = android_FullScreen_BlueBird;
 
-        iOS_Banner_AdsID = iOS_Banner_BlueBird;
-        iOS_FullScreen_AdsID = iOS_FullScreen_BlueBird;        
-    }
+    //    iOS_Banner_AdsID = iOS_Banner_BlueBird;
+    //    iOS_FullScreen_AdsID = iOS_FullScreen_BlueBird;        
+    //}
 
     public void RequestFullScreen()
     {

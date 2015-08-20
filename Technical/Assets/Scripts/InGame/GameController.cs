@@ -161,6 +161,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
             }
 
         }
+        //RenderNen(ListDelete);
     }
     //Random Gem ra màn hình
     public void RandomGem()
@@ -302,6 +303,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         SpawnPool gemPool = PoolManager.Pools[nameSpawnPool];
         gemPool.Despawn(gemTrans);
     }
+    #region Game
     public void InstantiateTimeStar()
     {
         int row;
@@ -600,7 +602,6 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
             ListDelete.Clear();
             listConect.Clear();
             listMouse.Clear();
-            listLoangDau.Clear();
             listDacBiet.Clear();
             if (listHieuUng.Count != 0)
             {
@@ -621,7 +622,6 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
             ListDelete.Clear();
             listConect.Clear();
             listMouse.Clear();
-            listLoangDau.Clear();
             listDacBiet.Clear();
             if (listHieuUng.Count != 0)
             {
@@ -759,7 +759,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
                 }
                 if (!ListDelete.Contains(arrGem[x][y]) && ListDelete.Count >= 1)//kiem tra xem doi tuong chon da co trong ListDelete chua
                 {
-
+                    
                     InstantiateConect(ListDelete[ListDelete.Count - 1], arrGem[x][y]);//xuat ket noi ra man hinh
 
                     //neu cuc keo duoc chua 1 trong so cac cuc dac biet se bao cho nguoi choi biet
@@ -897,7 +897,9 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
             if (!ListDelete.Contains(arrGem[vitri][i]))
             {
                 if (arrGem[vitri][i] != null)
+                {
                     ListDelete.Add(arrGem[vitri][i]);
+                }
             }
 
         }
@@ -910,7 +912,9 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
             if (!ListDelete.Contains(arrGem[i][vitri]))
             {
                 if (arrGem[i][vitri] != null)
-                    ListDelete.Add(arrGem[i][vitri]);
+                {
+                    ListDelete.Add(arrGem[i][vitri]);                    
+                }
             }
         }
     }
@@ -1156,7 +1160,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
             }
         }
         ReStart();
-        CheckListInvalid();
+        //CheckListInvalid();
     }
     void ReStart()
     {
@@ -1244,5 +1248,41 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 
         float triso = PlayerPrefs.GetFloat("Total") / exp;
         expScore += triso;
+    }
+    #endregion
+
+    public Transform transfNen;
+    public GameObject nenObj;
+    List<GameObject> listNen = new List<GameObject>();
+    void RenderNen(List<GameObject> lDelete)
+    {
+        for(int i = 0; i < lDelete.Count; i++)
+        {
+            Gem gem = lDelete[i].GetComponent<Gem>();
+            if(gem !=null)
+            {
+                if(gem.destroyCollum)
+                {
+                    for(int collum = 0; collum < countCollumn; collum++)
+                    {
+                        GameObject nen = SpawnGem(nenObj, "nen");
+                        nen.transform.SetParent(transfNen);
+                        nen.transform.localScale = Vector3.one;
+                        nen.transform.localPosition = arrGem[gem.collumn][collum].transform.localPosition;
+                    }                    
+                }
+                if(gem.destroyRow)
+                {
+                    for (int row = 0; row < countRow; row++)
+                    {
+                        GameObject nen = SpawnGem(nenObj, "nen");
+                        nen.transform.SetParent(transfNen);
+                        nen.transform.localScale = Vector3.one;
+                        nen.transform.localPosition = arrGem[row][gem.row].transform.localPosition;
+                    }   
+                }
+            }
+           
+        }
     }
 }
