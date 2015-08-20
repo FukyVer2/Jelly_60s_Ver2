@@ -688,6 +688,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         activeTimeHelp = true;
         yyy = true;
     }
+	#region Render
     void RenderSpecial()
     {
 
@@ -710,6 +711,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         listHieuUng.Clear();
 
     }
+	#endregion
     private GameObject transfHieuUng;
 
     GameObject GetArrGem(int x, int y)
@@ -1251,38 +1253,5 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     }
     #endregion
 
-    public Transform transfNen;
-    public GameObject nenObj;
-    List<GameObject> listNen = new List<GameObject>();
-    void RenderNen(List<GameObject> lDelete)
-    {
-        for(int i = 0; i < lDelete.Count; i++)
-        {
-            Gem gem = lDelete[i].GetComponent<Gem>();
-            if(gem !=null)
-            {
-                if(gem.destroyCollum)
-                {
-                    for(int collum = 0; collum < countCollumn; collum++)
-                    {
-                        GameObject nen = SpawnGem(nenObj, "nen");
-                        nen.transform.SetParent(transfNen);
-                        nen.transform.localScale = Vector3.one;
-                        nen.transform.localPosition = arrGem[gem.collumn][collum].transform.localPosition;
-                    }                    
-                }
-                if(gem.destroyRow)
-                {
-                    for (int row = 0; row < countRow; row++)
-                    {
-                        GameObject nen = SpawnGem(nenObj, "nen");
-                        nen.transform.SetParent(transfNen);
-                        nen.transform.localScale = Vector3.one;
-                        nen.transform.localPosition = arrGem[row][gem.row].transform.localPosition;
-                    }   
-                }
-            }
-           
-        }
-    }
+    
 }
