@@ -1,5 +1,5 @@
 -keep class * extends java.util.ListResourceBundle {
-    protected java.lang.Object[][] getContents();
+    protected Object[][] getContents();
 }
 
 # Keep SafeParcelable value, needed for reflection. This is required to support backwards
