@@ -11,10 +11,13 @@ public class ButtonController : MonoBehaviour
     public GameObject hightScore;
     public Text txtHightScore;
 
+    public AudioSource audioGamePlay;
+
     private GameController _gameController;
     private UIController _uiController;
     private GameOver gameOverController;
     private float hightPointScore;
+
 
     // Use this for initialization
     void Start()
@@ -109,5 +112,18 @@ public class ButtonController : MonoBehaviour
     {
         hightScore.SetActive(false);
         gameStart.SetActive(true);
+    }
+    int indexMute = 0;
+    public void MuteMussic()
+    {
+        indexMute++;
+        if (indexMute % 2 != 0)
+        {
+            audioGamePlay.mute = true;
+        }
+        else
+        {
+            audioGamePlay.mute = false;
+        }
     }
 }
