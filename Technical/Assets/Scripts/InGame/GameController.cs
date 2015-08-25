@@ -1196,7 +1196,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
                 arrGem[vitriX][vitriY].GetComponent<Gem>().destroyCollum = true;
                 GameObject dacbiet = Instantiate(cucDacBiet[0], arrGem[vitriX][vitriY].transform.position, Quaternion.identity) as GameObject;
                 dacbiet.transform.parent = arrGem[vitriX][vitriY].transform;
-                dacbiet.transform.localScale = Vector3.one;
+                dacbiet.transform.localScale = new Vector3(0.5f, 0.5f, 1);
                 SetIndexX(vitriX);
                 SetIndexY(vitriY);
             }
@@ -1205,7 +1205,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
                 arrGem[vitriX][vitriY].GetComponent<Gem>().destroyRow = true;
                 GameObject dacbiet = Instantiate(cucDacBiet[1], arrGem[vitriX][vitriY].transform.position, Quaternion.identity) as GameObject;
                 dacbiet.transform.parent = arrGem[vitriX][vitriY].transform;
-                dacbiet.transform.localScale = Vector3.one;
+                dacbiet.transform.localScale = new Vector3(0.5f, 0.5f, 1);
                 //transfHieuUng = arrGem[vitriX][vitriY];
                 SetIndexX(vitriX);
                 SetIndexY(vitriY);
@@ -1305,10 +1305,13 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
                 {
                     for (int j = 0; j < gem.listChil.Count; j++)
                     {
-                        gem.listChil[j].transform.SetParent(obj.transform);
-                        Vector3 pos = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
-                        gem.listChil[j].transform.localPosition = pos;
-                        gem.listChil[j].transform.localScale = Vector3.one;
+                        if (gem.listChil[j].gameObject != null)
+                        {
+                            gem.listChil[j].transform.SetParent(obj.transform);
+                            Vector3 pos = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
+                            gem.listChil[j].transform.localPosition = pos;
+                            gem.listChil[j].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+                        }
                     }
 
                     gem.destroyRow = false;

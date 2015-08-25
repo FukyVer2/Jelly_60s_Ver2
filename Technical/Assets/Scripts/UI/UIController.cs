@@ -44,47 +44,50 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isPause == false)
+        if (ReadyGo.Instance.isGo)
         {
-            if (timeDelay > 1 && timeGame > 0)
+            if (isPause == false)
             {
-                timeGame -= 1;//sau 1s thời gian giảm xuống
-                if (timeGame <= 0)// nếu < 0 sẽ xuất hiện màn hình Game Over
+                if (timeDelay > 1 && timeGame > 0)
                 {
-                    isGameOver = true;
-                    GameOver();
-                    gameController.ExpScore();
+                    timeGame -= 1;//sau 1s thời gian giảm xuống
+                    if (timeGame <= 0)// nếu < 0 sẽ xuất hiện màn hình Game Over
+                    {
+                        isGameOver = true;
+                        GameOver();
+                        gameController.ExpScore();
+                    }
+                    timeDelay = 0;
                 }
-                timeDelay = 0;
-            }
-            if (timeGame != timeGameIT)
-            {
-                Scale("ChangleScaleTime");//hiệu ứng to nhỏ thời gian
-                timeGameIT = timeGame;
-            }
-            if (gameController != null)
-            {
-                if (gameController.score != scoreIT)
+                if (timeGame != timeGameIT)
                 {
-                    Scale("ChangleScaleScore");//hiệu ứng to nhỏ điểm
-                    scoreIT = gameController.score;
+                    Scale("ChangleScaleTime");//hiệu ứng to nhỏ thời gian
+                    timeGameIT = timeGame;
                 }
+                if (gameController != null)
+                {
+                    if (gameController.score != scoreIT)
+                    {
+                        Scale("ChangleScaleScore");//hiệu ứng to nhỏ điểm
+                        scoreIT = gameController.score;
+                    }
+                }
+                timeDelay += Time.deltaTime;
+                ChangleFillAmount();
+                UpdateTime();
             }
-            timeDelay += Time.deltaTime;
-            ChangleFillAmount();
-            UpdateTime();
-        }
-        if (isCombo)
-        {
-            if (timeShowCombo <= 0)
+            if (isCombo)
             {
-                isCombo = false;
-                isPause = false;
-                combo.SetActive(false);
-                timeShowCombo = 2;
+                if (timeShowCombo <= 0)
+                {
+                    isCombo = false;
+                    isPause = false;
+                    combo.SetActive(false);
+                    timeShowCombo = 2;
 
+                }
+                timeShowCombo -= Time.deltaTime;
             }
-            timeShowCombo -= Time.deltaTime;
         }
     }
     public void AddTime(int _timeAdd)
@@ -230,7 +233,7 @@ public class UIController : MonoBehaviour
         isGameOver = false;
         timeGameIT = timeGame;
         totalDelete = new int[6];
-       
+        
         if (gameController != null)
         {
             scoreIT = gameController.score;
@@ -239,6 +242,7 @@ public class UIController : MonoBehaviour
         timeDelay = 0;
         SetText();
         pause.SetActive(false);
+        
     }
 
     void Scale(String name)

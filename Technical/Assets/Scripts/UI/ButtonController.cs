@@ -44,6 +44,7 @@ public class ButtonController : MonoBehaviour
         gamePlay.SetActive(true);
         _gameController = gamePlay.GetComponentInChildren<GameController>();
         _uiController = gamePlay.GetComponentInChildren<UIController>();
+        ReadyGo.Instance.Test();
 
     }
     public void GameOver()//Game Over
@@ -100,7 +101,8 @@ public class ButtonController : MonoBehaviour
             _uiController.GameRelay();
             _gameController.RandomMap();
 
-        }
+        }        
+        ReadyGo.Instance.Test();
     }
     public void HightScore()
     {
