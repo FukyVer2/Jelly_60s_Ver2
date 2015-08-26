@@ -49,6 +49,8 @@ public class ButtonController : MonoBehaviour
     }
     public void GameOver()//Game Over
     {
+
+        ReadyGo.Instance.Reset();
 #if UNITY_ANDROID || UNITY_IOS
         //Debug.Log("Show Banner");
 		GoogleAds_J60s.Instance.HideBanner();
@@ -61,7 +63,9 @@ public class ButtonController : MonoBehaviour
         {
             gameOverController.SaveScore();
             hightPointScore = gameOverController.GetHightScore();
+         
         }
+        
     }
     public void GameMenu()//Menu Game
     {
@@ -87,6 +91,7 @@ public class ButtonController : MonoBehaviour
     }
     public void GameRelay()
     {
+
 #if UNITY_ANDROID || UNITY_IOS
         //Debug.Log("Show Banner");
 		GoogleAds_J60s.Instance.HideBanner();
@@ -101,7 +106,7 @@ public class ButtonController : MonoBehaviour
             _uiController.GameRelay();
             _gameController.RandomMap();
 
-        }        
+        }
         ReadyGo.Instance.Test();
     }
     public void HightScore()

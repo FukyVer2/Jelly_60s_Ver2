@@ -48,7 +48,7 @@ public class UIController : MonoBehaviour
         {
             if (isPause == false)
             {
-                if (timeDelay > 1 && timeGame > 0)
+                if (timeDelay > 1 && timeGame >= 0)
                 {
                     timeGame -= 1;//sau 1s thời gian giảm xuống
                     if (timeGame <= 0)// nếu < 0 sẽ xuất hiện màn hình Game Over
@@ -219,7 +219,9 @@ public class UIController : MonoBehaviour
     }
     public void GameOver()
     {
+        ReadyGo.Instance.Reset();
         buttonController.GameOver();
+        
     }
     public void GameRelay()
     {

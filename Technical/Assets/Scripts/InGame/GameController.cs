@@ -1244,6 +1244,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
             }
         }
         ReStart();
+
         //CheckListInvalid();
     }
     void ReStart()
