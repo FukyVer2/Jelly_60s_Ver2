@@ -69,6 +69,7 @@ public class ButtonController : MonoBehaviour
     }
     public void GameMenu()//Menu Game
     {
+        ReadyGo.Instance.Reset();
 #if UNITY_ANDROID || UNITY_IOS
         //Debug.Log("Show Banner");
         GoogleAds_J60s.Instance.ShowBanner();
@@ -132,5 +133,9 @@ public class ButtonController : MonoBehaviour
         {
             audioGamePlay.mute = false;
         }
+    }
+    public void Rating()
+    {
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.bluebirdaward.Fuky.Jelly60s");
     }
 }

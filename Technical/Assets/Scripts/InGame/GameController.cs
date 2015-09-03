@@ -594,7 +594,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         }
 
     }
-
+    public GameObject number;
     //Hàm Kết thúc kéo 
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -644,6 +644,16 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         //nếu List Conect lớn hơn 3 thì cho nổ các cục Gem
         if (ListDelete.Count >= 3)
         {
+            Vector3 posNumber = new Vector3(ListDelete[ListDelete.Count - 1].transform.position.x, ListDelete[ListDelete.Count - 1].transform.position.y, -1);
+
+            GameObject n = Instantiate(number, posNumber, Quaternion.identity) as GameObject;
+            NumberDrag nDrag = n.GetComponent<NumberDrag>();
+            if (nDrag != null)
+            {
+                nDrag.number = ListDelete.Count;
+                nDrag.Calculogic();
+            }
+
             uiController.countGem = ListDelete.Count;
             uiController.CheckCombo();
             uiController.Combo();
@@ -695,7 +705,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
                 MoveItween(ListDelete[i], transfGemOut.localPosition, 0.4f);
 
             }
-
+            
         }
         activeTimeHelp = true;
         yyy = true;
