@@ -35,10 +35,10 @@ public class Tutorial : MonoBehaviour {
     void Test()
     {
         count++;
-        if(count > 1)
-        {
-            TestTutorial();
-        }
+        //if(count > 1)
+        //{
+        //    TestTutorial();
+        //}
     }
     public int count = -1;
     [ContextMenu("Move")]
@@ -124,12 +124,7 @@ public class Tutorial : MonoBehaviour {
 
         List<List<GameObject>> listLoangDau = GameController.Instance.listLoangDau;
         List<GameObject> listGem = listLoangDau[Random.Range(0,listLoangDau.Count)];
-        if (GetGem(listGem[0]).collumn == GetGem(listGem[1]).collumn && GetGem(listGem[0]).collumn < GetGem(listGem[2]).collumn && GetGem(listGem[0]).row <= GetGem(listGem[1]).row)
-        {
-            posMin = listGem[2].transform.position;
-            posBetween = listGem[0].transform.position;
-            posMax = listGem[1].transform.position;
-        }
+       
         if (GetGem(listGem[1]).collumn == GetGem(listGem[2]).collumn && GetGem(listGem[1]).row < GetGem(listGem[0]).row && GetGem(listGem[2]).row > GetGem(listGem[0]).row)
         {
             posMin = listGem[1].transform.position;
@@ -138,7 +133,7 @@ public class Tutorial : MonoBehaviour {
         }
         else
         {
-        
+            Debug.Log("FUCK");
             for (int i = 0; i < 3 - 1; i++)
             {
                 for (int j = i + 1; j < 3; j++)
@@ -149,6 +144,12 @@ public class Tutorial : MonoBehaviour {
             posMin = listGem[0].transform.position;
             posBetween = listGem[1].transform.position;
             posMax = listGem[2].transform.position;
+        }
+        if (GetGem(listGem[0]).collumn == GetGem(listGem[1]).collumn && GetGem(listGem[0]).collumn < GetGem(listGem[2]).collumn && GetGem(listGem[2]).row < GetGem(listGem[0]).row)
+        {
+            posMin = listGem[2].transform.position;
+            posBetween = listGem[0].transform.position;
+            posMax = listGem[1].transform.position;
         }
         float width = sprite.bounds.size.x / 2.0f - 0.2f;
         float height = sprite.bounds.size.y / 2.0f - 0.2f;
