@@ -245,6 +245,7 @@ public class UIController : MonoBehaviour
         SetText();
         pause.SetActive(false);
         
+        
     }
 
     void Scale(String name)

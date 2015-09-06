@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using PathologicalGames;
 
-public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class GameController : MonoSingleton<GameController>, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 
     public Sprite[] gemImageStart;
@@ -48,8 +48,8 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     //private RaycastHit2D rayHit;
     [HideInInspector]
     private List<GameObject> listConect;//tao lien ket cho cac cuc(sau nay thanh thanh Animation)
-    [HideInInspector]
-    private List<List<GameObject>> listLoangDau;//kiem tra con duong nao de an khong
+    //[HideInInspector]
+    public List<List<GameObject>> listLoangDau;//kiem tra con duong nao de an khong
     [HideInInspector]
     private List<GameObject> listMouse;
     //private int index;//so thu tu cac Prefabs  
@@ -1140,7 +1140,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         }
 
     }
-    void CheckListInvalid()
+    public void CheckListInvalid()
     {
         listLoangDau.Clear();
         for (int j = 0; j < countRow; j++)
@@ -1255,7 +1255,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         }
         ReStart();
 
-        //CheckListInvalid();
+        CheckListInvalid();
     }
     void ReStart()
     {
@@ -1283,6 +1283,7 @@ public class GameController : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         listConect.Clear();
         listItween.Clear();
         listHieuUng.Clear();
+        listLoangDau.Clear();
 
     }
     #endregion
