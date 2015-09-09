@@ -75,7 +75,8 @@ public class ReadyGo : MonoSingleton<ReadyGo>
        
     }
     void MoveGo()
-    {        
+    {
+        FinishTutorial.Instance.Jelly();
         isGo = true;
         isButton = false;
         isReady = false;

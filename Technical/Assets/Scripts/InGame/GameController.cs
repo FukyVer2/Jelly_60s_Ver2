@@ -560,6 +560,7 @@ public class GameController : MonoSingleton<GameController>, IBeginDragHandler, 
     //hàm bắt đầu kéo
     public void OnBeginDrag(PointerEventData eventData)
     {
+        FinishTutorial.Instance.Finish();
         listItween.Clear();
         listMove.Clear();
         listDeleteNen.Clear();

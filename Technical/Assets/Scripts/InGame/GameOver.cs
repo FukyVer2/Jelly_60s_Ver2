@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GameOver : MonoBehaviour
 {
+    List<string> listTxtMeo = new List<string>();
 
+    public Text txtMeo;
 
     public GameController gameController;
     public Text yourScore;
@@ -15,6 +18,7 @@ public class GameOver : MonoBehaviour
     void Start()
     {
         SaveScore();
+        
 
     }
 
@@ -26,7 +30,7 @@ public class GameOver : MonoBehaviour
     //lưu Hight Score cho người chơi
     public void SaveScore()
     {
-
+        
         if (gameController != null)
         {
 
@@ -47,12 +51,22 @@ public class GameOver : MonoBehaviour
         {
             yourScore.text = gameController.score.ToString();
         }
-        hightScore.text = PlayerPrefs.GetInt("Score").ToString(); ;
+        hightScore.text = PlayerPrefs.GetInt("Score").ToString();
+        
     }
     public int GetHightScore()
     {
         int _hightScore = PlayerPrefs.GetInt("Score");
         return _hightScore;
+    }
+
+    
+    public void SetMeo()
+    {
+        listTxtMeo.Add("Co gang keo nhieu hon 10 cuc Gem de an duoc Gem tang thoi gian");
+        listTxtMeo.Add("Se co Commbo x2, x3 cho cac ban");
+        int index = Random.Range(0, listTxtMeo.Count - 1);
+        txtMeo.text = listTxtMeo[index];
     }
 
 }

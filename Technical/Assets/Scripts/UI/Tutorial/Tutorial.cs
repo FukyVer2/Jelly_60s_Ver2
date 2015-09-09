@@ -21,10 +21,9 @@ public class Tutorial : MonoBehaviour {
 
     void UpdateTutorial(Vector3 pos)
     {
-
         iTween.MoveTo(gameObject, iTween.Hash(
             iT.MoveTo.position, pos,
-            iT.MoveTo.time, 1f,
+            iT.MoveTo.time, 0.7f,
             iT.MoveTo.easetype, iTween.EaseType.linear,
             iT.MoveTo.oncomplete, "Test",
             iT.MoveTo.oncompletetarget, gameObject
@@ -35,10 +34,10 @@ public class Tutorial : MonoBehaviour {
     void Test()
     {
         count++;
-        //if(count > 1)
-        //{
-        //    TestTutorial();
-        //}
+        if (count > 1)
+        {
+            TestTutorial();
+        }
     }
     public int count = -1;
     [ContextMenu("Move")]
@@ -58,72 +57,16 @@ public class Tutorial : MonoBehaviour {
         }
         
     }
-    [ContextMenu("SetPos")]
-    void SetPos()
-    {
-        List<List<GameObject>> listLoangDau = GameController.Instance.listLoangDau;
 
-        int count = Random.Range(0, listLoangDau.Count - 1);
-        Vector3 pos = listLoangDau[0][0].transform.position;
-        float width = pos.x + sprite.bounds.size.x / 2.0f - 0.2f;
-        float height = pos.y + sprite.bounds.size.y / 2.0f - 0.2f;
-
-        pos.z = -1;
-
-        Vector3 pos0 = new Vector3(width, height, pos.z);
-        
-        Vector3 pos1 = listLoangDau[0][1].transform.position;
-        pos1.z = -1;
-        Vector3 pos2 = listLoangDau[0][2].transform.position;
-        pos2.z = -1;
-        gameObject.transform.position = pos0;
-        posMove = pos1;
-        posEnd = pos2;
-        count = 0;
-    }
-    [ContextMenu("StartTutorial")]
-    void StartTutorial()
-    {
-        List<List<GameObject>> listLoangDau = GameController.Instance.listLoangDau;
-        List<GameObject> listGem = listLoangDau[0];
-        Vector3 posMin = listGem[0].transform.position;
-        Vector3 posMax = listGem[0].transform.position;
-
-        float width = sprite.bounds.size.x / 2.0f - 0.2f;
-        float height = sprite.bounds.size.y / 2.0f - 0.2f;
-
-        for(int i =0;i<3;i++)
-        {
-            if(listGem[i].transform.position.y < posMin.y)
-            {
-                posMin = listGem[i].transform.position;
-
-            }
-            if(listGem[i].transform.position.y > posMax.y)
-            {
-                posMax = listGem[i].transform.position;
-            }
-        }
-
-        posStart = new Vector3(posMin.x + width, posMin.y + height, -1);
-        gameObject.transform.position = posStart;
-
-        posMove = new Vector3(listGem[1].transform.position.x + width, listGem[1].transform.position.y + height, -1);
-
-        posEnd = new Vector3(posMax.x + width, posMax.y + height, -1);
-
-        
-        count = 0;
-    }
     [ContextMenu("TestTutorial")]
-    void TestTutorial()
+    public void TestTutorial()
     {
         Vector3 posMin = Vector3.zero;
         Vector3 posBetween = Vector3.zero;
         Vector3 posMax = Vector3.zero;
 
         List<List<GameObject>> listLoangDau = GameController.Instance.listLoangDau;
-        List<GameObject> listGem = listLoangDau[Random.Range(0,listLoangDau.Count)];
+        List<GameObject> listGem = listLoangDau[0];
        
         if (GetGem(listGem[1]).collumn == GetGem(listGem[2]).collumn && GetGem(listGem[1]).row < GetGem(listGem[0]).row && GetGem(listGem[2]).row > GetGem(listGem[0]).row)
         {
@@ -133,7 +76,6 @@ public class Tutorial : MonoBehaviour {
         }
         else
         {
-            Debug.Log("FUCK");
             for (int i = 0; i < 3 - 1; i++)
             {
                 for (int j = i + 1; j < 3; j++)
@@ -151,8 +93,8 @@ public class Tutorial : MonoBehaviour {
             posBetween = listGem[0].transform.position;
             posMax = listGem[1].transform.position;
         }
-        float width = sprite.bounds.size.x / 2.0f - 0.2f;
-        float height = sprite.bounds.size.y / 2.0f - 0.2f;
+        float width = 0.3f;
+        float height = 0.525f;
 
         posStart = new Vector3(posMin.x + width, posMin.y + height, -1);
         gameObject.transform.position = posStart;
@@ -177,5 +119,12 @@ public class Tutorial : MonoBehaviour {
             a = b;
             b = temp;
         }
+    }
+    [ContextMenu("Size")]
+    void Size()
+    {
+        float width = sprite.bounds.size.x / 2.0f - 0.2f;
+        float height = sprite.bounds.size.y / 2.0f - 0.2f;
+        Debug.Log("Width = " + width + "---------- Height = " + height);
     }
 }

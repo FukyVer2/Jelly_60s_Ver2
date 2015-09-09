@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
+
 public class UIController : MonoBehaviour
 {
 
@@ -26,6 +27,7 @@ public class UIController : MonoBehaviour
     private int scoreIT;
     private bool isPause;
     public bool isGameOver;
+
     // Use this for initialization
     void Start()
     {
@@ -44,11 +46,11 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ReadyGo.Instance.isGo)
+        if (FinishTutorial.Instance.isStart)
         {
             if (isPause == false)
             {
-                if (timeDelay > 1 && timeGame >= 0)
+                if (timeDelay > 1 && timeGame > 0)
                 {
                     timeGame -= 1;//sau 1s thời gian giảm xuống
                     if (timeGame <= 0)// nếu < 0 sẽ xuất hiện màn hình Game Over
@@ -194,6 +196,7 @@ public class UIController : MonoBehaviour
     public void ResetFillAmount()
     {
         fillAmount = 1;
+        timeImgage.transform.localScale = new Vector3(1.0f, 1f, 1f);
     }
     public void RandomSpecial(int count, int i)
     {
@@ -235,7 +238,7 @@ public class UIController : MonoBehaviour
         isGameOver = false;
         timeGameIT = timeGame;
         totalDelete = new int[6];
-        
+        ResetFillAmount();
         if (gameController != null)
         {
             scoreIT = gameController.score;
@@ -244,7 +247,6 @@ public class UIController : MonoBehaviour
         timeDelay = 0;
         SetText();
         pause.SetActive(false);
-        
         
     }
 
@@ -294,4 +296,7 @@ public class UIController : MonoBehaviour
         isPause = false;
         pause.SetActive(false);        
     }
+
+    
+   
 }

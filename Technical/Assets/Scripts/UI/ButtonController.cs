@@ -7,11 +7,12 @@ public class ButtonController : MonoBehaviour
 
     public GameObject gameStart;
     public GameObject gamePlay;
-    public GameObject gameOver;
+    public GameOver gameOver;
     public GameObject hightScore;
     public Text txtHightScore;
 
     public AudioSource audioGamePlay;
+    public FinishTutorial finishTutorial;
 
     private GameController _gameController;
     private UIController _uiController;
@@ -45,6 +46,7 @@ public class ButtonController : MonoBehaviour
         _gameController = gamePlay.GetComponentInChildren<GameController>();
         _uiController = gamePlay.GetComponentInChildren<UIController>();
         ReadyGo.Instance.Test();
+        AvtiveTutorial();
 
     }
     public void GameOver()//Game Over
@@ -57,12 +59,14 @@ public class ButtonController : MonoBehaviour
 #endif
         MyApplication.Instance.googleAnalytics.LogEvent("GameOver", "Over", "", (int)Time.fixedTime);
 		//MyApplication.Instance.googleAnalytics.LogScreen ("GameOver");
-        gameOver.SetActive(true);
+        gameOver.gameObject.SetActive(true);
         gameOverController = gameOver.GetComponent<GameOver>();
         if (gameOverController != null)
         {
             gameOverController.SaveScore();
+            gameOverController.SetMeo();
             hightPointScore = gameOverController.GetHightScore();
+            _uiController.ResetFillAmount();
          
         }
         
@@ -80,11 +84,14 @@ public class ButtonController : MonoBehaviour
         {
             _uiController.GameRelay();
             _gameController.RandomMap();
-
+            _uiController.ResetFillAmount(); 
+            gameOver.txtMeo.text = "";
         }
-        gameOver.SetActive(false);
+        gameOver.gameObject.SetActive(false);
         gamePlay.SetActive(false);
         gameStart.SetActive(true);
+
+        
     }
     public void GameExit()
     {
@@ -100,8 +107,8 @@ public class ButtonController : MonoBehaviour
 #endif
         MyApplication.Instance.googleAnalytics.LogEvent("GameRelay", "ReplayGame", "", (int)Time.fixedTime);
         //MyApplication.Instance.googleAnalytics.LogScreen("GameRelay");
-        gameOver.SetActive(false);
-
+        gameOver.gameObject.SetActive(false);
+        gameOver.txtMeo.text = "";
         if (_gameController != null && _uiController != null)
         {
             _uiController.GameRelay();
@@ -109,6 +116,7 @@ public class ButtonController : MonoBehaviour
 
         }
         ReadyGo.Instance.Test();
+        AvtiveTutorial();
     }
     public void HightScore()
     {
@@ -137,5 +145,10 @@ public class ButtonController : MonoBehaviour
     public void Rating()
     {
         Application.OpenURL("https://play.google.com/store/apps/details?id=com.bluebirdaward.Fuky.Jelly60s");
+    }
+    void AvtiveTutorial()
+    {
+        finishTutorial.gameObject.SetActive(true);
+        finishTutorial.ResetTutorial();
     }
 }
