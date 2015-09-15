@@ -59,12 +59,18 @@ public class GameOver : MonoBehaviour
         int _hightScore = PlayerPrefs.GetInt("Score");
         return _hightScore;
     }
+    public int GetScore()
+    {
+        int _score = gameController.score;
+        return _score;
+    }
 
     
     public void SetMeo()
     {
-        listTxtMeo.Add("Co gang keo nhieu hon 10 cuc Gem de an duoc Gem tang thoi gian");
-        listTxtMeo.Add("Se co Commbo x2, x3 cho cac ban");
+        listTxtMeo.Add("Kéo hơn 10 cục sẽ xuất hiện Item cộng thời gian");
+        listTxtMeo.Add("Kéo càng nhiều thời gian cộng sẽ càng nhiều");
+        listTxtMeo.Add("Kéo liên tiếp hơn 10 cục sẽ được nhân 2 nhân 3 điểm");
         int index = Random.Range(0, listTxtMeo.Count - 1);
         txtMeo.text = listTxtMeo[index];
     }
