@@ -23,7 +23,10 @@ public class ButtonController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+#if UNITY_ANDROID
+        ChartboostAndroid.Instance.RequestInterstitial(ChartboostSDK.CBLocation.Default);
+        ChartboostAndroid.Instance.RequestRewardedVideo(ChartboostSDK.CBLocation.Default);
+#endif
     }
 
     // Update is called once per frame
@@ -37,7 +40,7 @@ public class ButtonController : MonoBehaviour
         //        Debug.Log("Show Banner");
 #if UNITY_ANDROID || UNITY_IOS
         Debug.Log("Show Banner");
-        GoogleAds_J60s.Instance.ShowBanner();
+        //GoogleAds_J60s.Instance.ShowBanner();
 #endif
         MyApplication.Instance.googleAnalytics.LogEvent("GamePlay", "PlayGame", "", (int)Time.fixedTime);
 		//MyApplication.Instance.googleAnalytics.LogScreen ("GamePLay");
@@ -55,7 +58,8 @@ public class ButtonController : MonoBehaviour
         ReadyGo.Instance.Reset();
 #if UNITY_ANDROID || UNITY_IOS
         //Debug.Log("Show Banner");
-		GoogleAds_J60s.Instance.HideBanner();
+		//GoogleAds_J60s.Instance.HideBanner();
+        ChartboostAndroid.Instance.ShowInterstitial(ChartboostSDK.CBLocation.Default);
 #endif
         MyApplication.Instance.googleAnalytics.LogEvent("GameOver", "Over", "", (int)Time.fixedTime);
 		//MyApplication.Instance.googleAnalytics.LogScreen ("GameOver");
@@ -76,7 +80,7 @@ public class ButtonController : MonoBehaviour
         ReadyGo.Instance.Reset();
 #if UNITY_ANDROID || UNITY_IOS
         //Debug.Log("Show Banner");
-        GoogleAds_J60s.Instance.ShowBanner();
+        //GoogleAds_J60s.Instance.ShowBanner();
 #endif
         MyApplication.Instance.googleAnalytics.LogEvent("GameMenu", "JoinGame", "", (int)Time.fixedTime);
 		//MyApplication.Instance.googleAnalytics.LogScreen ("GameMenu");
@@ -102,7 +106,7 @@ public class ButtonController : MonoBehaviour
 
 #if UNITY_ANDROID || UNITY_IOS
         //Debug.Log("Show Banner");
-		GoogleAds_J60s.Instance.HideBanner();
+		//GoogleAds_J60s.Instance.HideBanner();
         
 #endif
         MyApplication.Instance.googleAnalytics.LogEvent("GameRelay", "ReplayGame", "", (int)Time.fixedTime);
