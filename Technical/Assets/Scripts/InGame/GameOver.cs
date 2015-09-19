@@ -68,9 +68,9 @@ public class GameOver : MonoBehaviour
     
     public void SetMeo()
     {
-        listTxtMeo.Add("Kéo hơn 10 cục sẽ xuất hiện Item cộng thời gian");
-        listTxtMeo.Add("Kéo càng nhiều thời gian cộng sẽ càng nhiều");
-        listTxtMeo.Add("Kéo liên tiếp hơn 10 cục sẽ được nhân 2 nhân 3 điểm");
+        listTxtMeo.Add("Item add time appears when pull more than 10 jelly");
+        listTxtMeo.Add("Pull more jelly, add more score");
+        listTxtMeo.Add("Multiply 2 or multiply 3 score when to have pull two or three times than 10 jelly in succession");
         int index = Random.Range(0, listTxtMeo.Count - 1);
         txtMeo.text = listTxtMeo[index];
     }

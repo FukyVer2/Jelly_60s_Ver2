@@ -15,7 +15,7 @@ public class UIController : MonoBehaviour
     public GameObject objTotalGem;
     public GameObject timeImgage;
     public GameObject pause;
-    public GameObject combo;
+    public List<GameObject> combo;
     public Text txtCountGem;
     public Text txtScore;
     public float timeGame = 60;
@@ -27,10 +27,13 @@ public class UIController : MonoBehaviour
     private int scoreIT;
     private bool isPause;
     public bool isGameOver;
+    private Image imageTimeGreen;
+    private float fillTimeGreen = 1;
 
     // Use this for initialization
     void Start()
     {
+        imageTimeGreen = timeImgage.GetComponent<Image>();
         isGameOver = false;
         isPause = false;
         countDelete = 0;
@@ -43,6 +46,7 @@ public class UIController : MonoBehaviour
         fillAmount = 1;
     }
 
+    Color32 c = Color.red;
     // Update is called once per frame
     void Update()
     {
@@ -52,6 +56,7 @@ public class UIController : MonoBehaviour
             {
                 if (timeDelay > 1 && timeGame > 0)
                 {
+                    
                     timeGame -= 1;//sau 1s thời gian giảm xuống
                     if (timeGame <= 0)// nếu < 0 sẽ xuất hiện màn hình Game Over
                     {
@@ -60,6 +65,7 @@ public class UIController : MonoBehaviour
                         gameController.ExpScore();
                     }
                     timeDelay = 0;
+                    
                 }
                 if (timeGame != timeGameIT)
                 {
@@ -84,13 +90,15 @@ public class UIController : MonoBehaviour
                 {
                     isCombo = false;
                     isPause = false;
-                    combo.SetActive(false);
+                    combo[countCombo].SetActive(false);
                     timeShowCombo = 2;
 
                 }
                 timeShowCombo -= Time.deltaTime;
             }
+           
         }
+        TimeDanger();
     }
     public void AddTime(int _timeAdd)
     {
@@ -103,8 +111,14 @@ public class UIController : MonoBehaviour
     void UpdateTime()
     {
         SetText();
-        timeImgage.transform.localScale = new Vector3((timeGame * 0.0166f), 1f, 1f);
+        UpdateImageTime();
+        //timeImgage.transform.localScale = new Vector3((timeGame * 0.0166f), 1f, 1f);
         //timeImgage.GetComponent<Image>().color = Color.Lerp(Color.green, Color.red, 1 - (timeGame * 0.0166f));
+    }
+
+    void UpdateImageTime()
+    {
+        imageTimeGreen.fillAmount = timeGame / 60.0f;
     }
     public void SetText()
     {
@@ -130,10 +144,15 @@ public class UIController : MonoBehaviour
                 timeAddValue = 15;
 
             }
-            if (countDelete > 15)
+            if (countDelete > 15 && countDelete <= 20)
             {
                 timeAddValue = 22;
 
+            }
+            if (countDelete > 20)
+            {
+
+                timeAddValue = 35;
             }
             gameController.activeAddtime = true;
 
@@ -186,8 +205,8 @@ public class UIController : MonoBehaviour
         {
             isPause = true;
             x2Score = true;
-            Debug.Log("COMBO X2");
-            combo.SetActive(true);
+            //Debug.Log("COMBO X2");
+            combo[countCombo].SetActive(true);
             isCombo = true;
         }
     }
@@ -196,7 +215,8 @@ public class UIController : MonoBehaviour
     public void ResetFillAmount()
     {
         fillAmount = 1;
-        timeImgage.transform.localScale = new Vector3(1.0f, 1f, 1f);
+        imageTimeGreen.fillAmount = 1;
+        //timeImgage.transform.localScale = new Vector3(1.0f, 1f, 1f);
     }
     public void RandomSpecial(int count, int i)
     {
@@ -222,6 +242,7 @@ public class UIController : MonoBehaviour
     }
     public void GameOver()
     {
+        imageTimeGreen.color = Color.white;
         ReadyGo.Instance.Reset();
         buttonController.GameOver();
         
@@ -231,7 +252,11 @@ public class UIController : MonoBehaviour
         timeGame = 60;
         intPause = 0;
         countCombo = 0;
-        combo.SetActive(false);
+        //combo.SetActive(false);
+        for (int i = 0; i < combo.Count;i++ )
+        {
+            combo[i].SetActive(false);
+        }
         isCombo = false;
         x2Score = false;
         isPause = false;
@@ -280,11 +305,11 @@ public class UIController : MonoBehaviour
     int intPause = 0;
     public void Pause()
     {
-
-            gameController.activeTimeHelp = false;
-            //buttonPause.GetComponentInChildren<Text>().text = "Resume";
-            isPause = true;
-            pause.SetActive(true);
+        FinishTutorial.Instance.Finish();
+        gameController.activeTimeHelp = false;
+        //buttonPause.GetComponentInChildren<Text>().text = "Resume";
+        isPause = true;
+        pause.SetActive(true);
 
         
        
@@ -297,6 +322,32 @@ public class UIController : MonoBehaviour
         pause.SetActive(false);        
     }
 
-    
+    float x = 0;
+    float y = 0;
+    void TimeDanger()
+    {
+        if(timeGame <= 10)
+        {
+            x += Time.deltaTime;
+            if(x >= 0.5f)
+            {
+                y += 1;
+                if(y % 2 ==0)
+                {
+                    imageTimeGreen.color = Color.white;
+                }
+                else
+                {
+                    imageTimeGreen.color = Color.red;
+                }          
+                x = 0;
+            }
+           
+        }
+        else
+        {
+            imageTimeGreen.color = Color.white;
+        }
+    }
    
 }

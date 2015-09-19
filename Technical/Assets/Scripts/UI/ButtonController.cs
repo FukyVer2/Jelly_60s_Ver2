@@ -59,7 +59,9 @@ public class ButtonController : MonoBehaviour
 #if UNITY_ANDROID || UNITY_IOS
         //Debug.Log("Show Banner");
 		//GoogleAds_J60s.Instance.HideBanner();
-        ChartboostAndroid.Instance.ShowInterstitial(ChartboostSDK.CBLocation.Default);
+        //ChartboostAndroid.Instance.ShowInterstitial(ChartboostSDK.CBLocation.Default);
+        //StartCoroutine(ShowChartbook());
+        Invoke("ShowChartbook", 0.5f);
 #endif
         MyApplication.Instance.googleAnalytics.LogEvent("GameOver", "Over", "", (int)Time.fixedTime);
 		//MyApplication.Instance.googleAnalytics.LogScreen ("GameOver");
@@ -75,9 +77,15 @@ public class ButtonController : MonoBehaviour
         }
         
     }
+    void ShowChartbook()
+    {
+        Debug.Log("Show Chartbook");
+        ChartboostAndroid.Instance.ShowInterstitial(ChartboostSDK.CBLocation.Default);
+    }
     public void GameMenu()//Menu Game
     {
         ReadyGo.Instance.Reset();
+        FinishTutorial.Instance.Finish();
 #if UNITY_ANDROID || UNITY_IOS
         //Debug.Log("Show Banner");
         //GoogleAds_J60s.Instance.ShowBanner();
@@ -88,7 +96,7 @@ public class ButtonController : MonoBehaviour
         {
             _uiController.GameRelay();
             _gameController.RandomMap();
-            _uiController.ResetFillAmount(); 
+            _uiController.  ResetFillAmount(); 
             gameOver.txtMeo.text = "";
         }
         gameOver.gameObject.SetActive(false);
@@ -134,15 +142,24 @@ public class ButtonController : MonoBehaviour
         gameStart.SetActive(true);
     }
     int indexMute = 0;
+    public Image btMuteMussic;
+    public Image btMuteMussic1;
+    public Sprite spriteMussic;
+    public Sprite spriteMuteMussic;
     public void MuteMussic()
     {
         indexMute++;
         if (indexMute % 2 != 0)
         {
+            
+            btMuteMussic.sprite = spriteMuteMussic;
+            btMuteMussic1.sprite = spriteMuteMussic;
             audioGamePlay.mute = true;
         }
         else
         {
+            btMuteMussic.sprite = spriteMussic;
+            btMuteMussic1.sprite = spriteMussic;
             audioGamePlay.mute = false;
         }
     }

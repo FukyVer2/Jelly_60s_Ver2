@@ -59,7 +59,7 @@ public class FBHolder : MonoBehaviour {
 	{
 		FB.Login ("email,publish_actions", AuthCallBack);
 	}
-
+    public bool isShare = false;
 	void AuthCallBack(FBResult result)
 	{
 		if (FB.IsLoggedIn)
@@ -68,8 +68,11 @@ public class FBHolder : MonoBehaviour {
 			print("FB login worked");
             //LinkAndPicture();
             //TakeScreenshot();
-			//FBfeed();
-            UpdateShareFB();
+            if (!isShare)
+                //FBfeed();
+                ShareFBScreenStart();
+            else
+                UpdateShareFB();
 		}
 		else
 		{
@@ -139,21 +142,22 @@ public class FBHolder : MonoBehaviour {
 */
 	public void ShareWithFriends()
     {
-
+        isShare = false;
 	    //check login or not yet:
 	    if (FB.IsLoggedIn) //logged in OK -> goto share to FB
 	    {
-			    print ("logged in OK -> goto share to FB");
-                //LinkAndPicture();
-                //TakeScreenshot();
-			    //FBfeed();
+			print ("logged in OK -> goto share to FB");
+            //LinkAndPicture();
+            //TakeScreenshot();
+			//FBfeed();
+            ShareFBScreenStart();
 	    }
 	    else //not login yet, so go to login and share
 	    {
-			    print("not login yet, so go to login and share");
-			    FBLogin();
-			    //ShareWithFriends();
-			    //goto loop;
+			print("not login yet, so go to login and share");
+			FBLogin();
+			//ShareWithFriends();
+			//goto loop;
 		    //DealWithFBMenus(false);
 		    //FBLogin();
 	    }
@@ -162,10 +166,10 @@ public class FBHolder : MonoBehaviour {
 	{
 		FB.Feed(
 			linkCaption: "I'm playing this awesome game",
-            picture: "http://akutiloaded.com.ng/wp-content/uploads/2015/04/large-email.jpg",
+            picture: "",
 			linkName: "Check out this game",
 			//link: "http://apps.facebook.com/" + FB.AppId + "/?challenge_brag=" + (FB.IsLoggedIn ? FB.UserId : "Guest")
-            link: "https://play.google.com/store/apps/details?id=com.bluebirdaward.Fuky.Jelly60s"
+            link: "https://play.google.com/store/apps/details?id=com.Fuky.Jelly60s"
 			//mediaSource: "https://www.youtube.com/watch?v=dAXW1R_aoz4"
 			);
 	}
@@ -233,7 +237,6 @@ public class FBHolder : MonoBehaviour {
 
     public void ShareFBScreenStart()
     {
-
         FB.Feed(
             linkCaption: "Chơi Game Nào",
             picture: "",
@@ -247,13 +250,14 @@ public class FBHolder : MonoBehaviour {
     [ContextMenu("TestIEnumerator")]
     public void StartShareFB()
     {
+        isShare = true;
         score.SetActive(true);
         StartCoroutine(DelaySceen());
     }
     IEnumerator DelaySceen()
     {
         yield return new WaitForEndOfFrame();
-        Debug.Log("Delay Time");
+        //Debug.Log("Delay Time");
         //bat dau chup man hinh
         int width = Screen.width;
         int height = Screen.height;
