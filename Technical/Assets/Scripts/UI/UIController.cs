@@ -90,7 +90,7 @@ public class UIController : MonoBehaviour
                 {
                     isCombo = false;
                     isPause = false;
-                    combo[countCombo].SetActive(false);
+                    combo[countCombo - 2].SetActive(false);
                     timeShowCombo = 2;
 
                 }
@@ -206,11 +206,16 @@ public class UIController : MonoBehaviour
             isPause = true;
             x2Score = true;
             //Debug.Log("COMBO X2");
-            combo[countCombo].SetActive(true);
+            combo[countCombo -  2].SetActive(true);
             isCombo = true;
         }
     }
-
+    [ContextMenu("TestCommbo")]
+    void TestCombo()
+    {
+        countCombo = 4;
+        Combo();
+    }
 
     public void ResetFillAmount()
     {
