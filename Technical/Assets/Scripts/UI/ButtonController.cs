@@ -36,6 +36,7 @@ public class ButtonController : MonoBehaviour
     }
     public void GamePlay()//Game Play
     {
+       
         //#if UNITY_EDITOR
         //        Debug.Log("Show Banner");
 #if UNITY_ANDROID || UNITY_IOS
@@ -50,6 +51,7 @@ public class ButtonController : MonoBehaviour
         _uiController = gamePlay.GetComponentInChildren<UIController>();
         ReadyGo.Instance.Test();
         AvtiveTutorial();
+        AudioController.Instance.PlaySound(AudioType.BUTTON_CLICK);
 
     }
     public void GameOver()//Game Over
@@ -129,6 +131,7 @@ public class ButtonController : MonoBehaviour
         }
         ReadyGo.Instance.Test();
         AvtiveTutorial();
+        AudioController.Instance.PlaySound(AudioType.BUTTON_CLICK);
     }
     public void HightScore()
     {
@@ -165,7 +168,7 @@ public class ButtonController : MonoBehaviour
     }
     public void Rating()
     {
-        Application.OpenURL("https://play.google.com/store/apps/details?id=com.bluebirdaward.Fuky.Jelly60s");
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.Fuky.Jelly60s");
     }
     void AvtiveTutorial()
     {

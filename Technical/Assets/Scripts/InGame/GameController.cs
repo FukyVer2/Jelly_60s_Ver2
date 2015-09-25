@@ -438,7 +438,7 @@ public class GameController : MonoSingleton<GameController>, IBeginDragHandler, 
         //xoa cac cuc        
         if (ListDelete.Count >= 3)
         {
-            uiController.ResetFillAmount();
+            //uiController.ResetFillAmount();
             Gem _gem = ListDelete[0].GetComponent<Gem>();
             uiController.totalDelete[_gem.inDex] += ListDelete.Count;
 

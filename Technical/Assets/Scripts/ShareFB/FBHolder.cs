@@ -57,7 +57,7 @@ public class FBHolder : MonoBehaviour {
 	//public void FBLogin()
 	void FBLogin()
 	{
-		FB.Login ("email,publish_actions", AuthCallBack);
+        FB.Login("email,publish_actions,user_photos", AuthCallBack);
 	}
     public bool isShare = false;
 	void AuthCallBack(FBResult result)
