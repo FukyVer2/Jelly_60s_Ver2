@@ -18,14 +18,16 @@ public class FBHolder : MonoBehaviour {
 		//UIFbAvatar = GameObject.Find ("FB Avatar");
 		//UIFbUserName = GameObject.Find ("FB User Name");
 		//ScoresDebug = GameObject.Find ("ScoresDebug");
+        FB.Init(SetInit, onHideUnity);
 	}	
 	// Update is called once per frame
 	//
 
 	void Awake()
 	{
-		FB.Init (SetInit, onHideUnity);
+		
 	}
+
 
 	private void SetInit()
 	{
@@ -72,7 +74,10 @@ public class FBHolder : MonoBehaviour {
                 //FBfeed();
                 ShareFBScreenStart();
             else
-                UpdateShareFB();
+                S();
+                //StartShareFB();
+                //StartCoroutine(DelaySceenShot());
+                //UpdateShareFB();
 		}
 		else
 		{
@@ -225,6 +230,7 @@ public class FBHolder : MonoBehaviour {
     }
     void PostPicCallback(FBResult result)
     {
+        score.SetActive(false);
         if (result.Error != null)
         {
             Debug.LogWarning("FacebookManager-publishActionCallback: error: " + result.Error);
@@ -239,7 +245,6 @@ public class FBHolder : MonoBehaviour {
     {
         FB.Feed(
             linkCaption: "Chơi Game Nào",
-            picture: "",
             linkName: "Jelly 60S",
             //link: "http://apps.facebook.com/" + FB.AppId + "/?challenge_brag=" + (FB.IsLoggedIn ? FB.UserId : "Guest")
             link: "https://play.google.com/store/apps/details?id=com.Fuky.Jelly60s"
@@ -248,14 +253,63 @@ public class FBHolder : MonoBehaviour {
     }
     public GameObject score;
     [ContextMenu("TestIEnumerator")]
+   
+    public void S()
+    {
+        isShare = true;
+        
+        if (FB.IsLoggedIn) //logged in OK -> goto share to FB
+        {
+            StartCoroutine(ShareShare());
+        }
+        else //not login yet, so go to login and share
+        {
+            FBLogin();
+        }
+        
+    }
+    IEnumerator ShareShare()
+    {
+        score.SetActive(true);
+        yield return new WaitForEndOfFrame();
+        int width = Screen.width;
+        int height = Screen.height;
+        Texture2D tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+        Rect r = new Rect(0, 0, (float)width, (float)height);
+        tex.ReadPixels(r, 0, 0);
+
+        tex.Apply();
+
+        //byte[] screenshot = tex.EncodeToPNG();
+        screenshot = tex.EncodeToPNG();
+
+        var wwwForm = new WWWForm();
+        wwwForm.AddBinaryData("image", screenshot, "InteractiveConsole.png");
+        wwwForm.AddField("message", "Ai vuot Qua khong");
+
+        FB.API("me/photos", Facebook.HttpMethod.POST, PostPicCallback, wwwForm);
+    }
+    #region Share 1
     public void StartShareFB()
     {
         isShare = true;
-        score.SetActive(true);
-        StartCoroutine(DelaySceen());
+        if (FB.IsLoggedIn) //logged in OK -> goto share to FB
+        {
+            print("logged in OK -> goto share to FB");
+            //UpdateShareFB();
+
+            score.SetActive(true);
+            StartCoroutine(DelaySceen());
+        }
+        else //not login yet, so go to login and share
+        {
+            print("not login yet, so go to login and share");
+            FBLogin();
+        }
+
     }
     IEnumerator DelaySceen()
-    {
+    {        
         yield return new WaitForEndOfFrame();
         //Debug.Log("Delay Time");
         //bat dau chup man hinh
@@ -285,17 +339,7 @@ public class FBHolder : MonoBehaviour {
         yield return new WaitForSeconds(1.0f);
         Debug.Log("Delay Time Screen Shot");
         score.SetActive(false);
-        if (FB.IsLoggedIn) //logged in OK -> goto share to FB
-        {
-            print("logged in OK -> goto share to FB");
-            UpdateShareFB();
-        }
-        else //not login yet, so go to login and share
-        {
-            print("not login yet, so go to login and share");
-            FBLogin();
-
-        }
+        UpdateShareFB();
 
     }
     void UpdateShareFB()
@@ -306,8 +350,8 @@ public class FBHolder : MonoBehaviour {
 
         FB.API("me/photos", Facebook.HttpMethod.POST, PostPicCallback, wwwForm);
     }
-
-	/*
+    #endregion
+    /*
 	public void InviteFriends()
 	{
 		FB.AppRequest (
