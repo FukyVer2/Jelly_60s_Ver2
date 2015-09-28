@@ -59,7 +59,7 @@ public class FBHolder : MonoBehaviour {
 	//public void FBLogin()
 	void FBLogin()
 	{
-        FB.Login("email,publish_actions,user_photos", AuthCallBack);
+        FB.Login("email,publish_actions,user_photos,user_posts", AuthCallBack);
 	}
     public bool isShare = false;
 	void AuthCallBack(FBResult result)
@@ -287,7 +287,10 @@ public class FBHolder : MonoBehaviour {
         wwwForm.AddBinaryData("image", screenshot, "InteractiveConsole.png");
         wwwForm.AddField("message", "Ai vuot Qua khong");
 
-        FB.API("me/photos", Facebook.HttpMethod.POST, PostPicCallback, wwwForm);
+        FB.API("/photos", Facebook.HttpMethod.POST, PostPicCallback, wwwForm);
+        //FB.API(FB.UserId, Facebook.HttpMethod.POST, PostPicCallback, wwwForm);
+        
+        
     }
     #region Share 1
     public void StartShareFB()

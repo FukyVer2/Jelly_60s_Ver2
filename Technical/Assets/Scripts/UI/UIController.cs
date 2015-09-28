@@ -90,8 +90,13 @@ public class UIController : MonoBehaviour
                 {
                     isCombo = false;
                     isPause = false;
-                    combo[countCombo - 2].SetActive(false);
+                    combo[indexCombo].SetActive(false);
                     timeShowCombo = 2;
+                    if (indexCombo >= 3)
+                    {
+                        countCombo = 0;
+                        indexCombo = 0;
+                    }
 
                 }
                 timeShowCombo -= Time.deltaTime;
@@ -199,15 +204,20 @@ public class UIController : MonoBehaviour
     public bool x2Score = false;
     private bool isCombo = false;
     private float timeShowCombo = 2;
+    int indexCombo = 0;
     public void Combo()
     {
         if (countCombo >= 2)
         {
+            
             isPause = true;
             x2Score = true;
             //Debug.Log("COMBO X2");
-            combo[countCombo -  2].SetActive(true);
+            indexCombo = countCombo - 2;
+            
+            combo[indexCombo].SetActive(true);
             isCombo = true;
+            
         }
     }
     [ContextMenu("TestCommbo")]
